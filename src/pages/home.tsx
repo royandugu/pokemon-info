@@ -10,15 +10,18 @@ import CardDisplays from "../components/home/cardDisplays/cardDisplays";
 import IndvPokemonDisplayer from "../components/home/indvPokemonDisplayer/indvPokemonDisplayer";
 import context from "../components/context/context";
 import PopUp from "../components/common/popUp/popUp";
+import { Helmet } from "react-helmet";
 
 
 const Home = () => {
-
     const contextContainer = useContext(context);
     const [searchContent, setSearchContent] = useState("");
     const [scrollDown, setScrollDown] = useState(false);
     const [pageDetails, setPageDetails] = useState({ startPage: 1, endPage: 100 })
     const [content, setContent] = useState<any>();
+
+    const pageTitle = `Explore the Ultimate World of Pokémon - Uncover Fascinating Facts!`;
+    const pageDescription = `Dive into the captivating universe of Pokémon with our comprehensive guide. Discover intriguing facts and informations about the beloved Pokémon franchise. Whether you're a seasoned trainer or a curious newcomer, our Pokémon website is your go-to resource for all things Pokémon!`;
 
     const { data, status } = useQuery("pokemon-list", () => GET(`https://pokeapi.co/api/v2/pokemon?limit=100`));
 
@@ -53,22 +56,40 @@ const Home = () => {
     };
 
     const findSimilarStrings = () => {
-        if(data){
-        const similarStrings = data.results.filter((str: { name: string, url: string }) => {
-            const similarity = calculateJaccardSimilarity(searchContent.toLocaleLowerCase(), str.name);
-            return similarity >= 0.5;
-        });
+        if (data) {
+            const similarStrings = data.results.filter((str: { name: string, url: string }) => {
+                const similarity = calculateJaccardSimilarity(searchContent.toLocaleLowerCase(), str.name);
+                return similarity >= 0.5;
+            });
 
-        setContent(similarStrings);
+            setContent(similarStrings);
         }
     };
 
 
-    if (status === "loading") return <h5> Loading </h5>
+    if (status === "loading") return (
+        <div className="flex justify-center items-start h-screen pt-[20%]">
+        <div className="pokemon" />
+        </div>
+    )
     else if (status === "error") return <h5> Error </h5>
     else if (status === "success") {
         return (
             <div className="relative">
+
+                <Helmet>
+                    <title>{pageTitle}</title>
+                    <meta name="description" content={pageDescription} />
+                    <meta name="keywords" content="Pokémon Universe, Pokémon Games,Pokémon Facts,Pokémon Trivia,Pokémon Franchise,Pokémon World,Explore Pokémon,Pokémon Enthusiasts,Pokémon Fansite,Pokémon Information Hub"/>
+                    <meta name="author" content="Your Name" />
+
+                    {/* Open Graph (OG) tags for better social media sharing */}
+                    <meta property="og:title" content={pageTitle} />
+                    <meta property="og:description" content={pageDescription} />
+                    <meta property="og:type" content="website" />
+                    
+                </Helmet>
+
                 <div className={`flex pl-10 sm:pl-20 pt-10 pr-5 ${contextContainer.isDark ? 'bg-[#303134] text-white' : 'bg-[#eff1f7] text-black'}`}>
                     <div className="flex-1 pr-5">
                         <SearchBox setSearchContent={setSearchContent} contextContainer={contextContainer} findSimilarStrings={findSimilarStrings} />

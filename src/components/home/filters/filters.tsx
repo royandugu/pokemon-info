@@ -14,7 +14,7 @@ const Filters=(props:FiltersProps)=>{
                     {props.pageDetails.startPage}
                 </div>
                 <h5 className="text-bold"> To </h5>
-                <div className={` border border-[rgb(200,200,200)] h-10 pl-3 pr-3 justify-center items-center flex bg-white ${props.contextContainer.isDark?'bg-black':'bg-white'}`}>
+                <div className={` border border-[rgb(200,200,200)] h-10 pl-3 pr-3 justify-center items-center flex ${props.contextContainer.isDark?'bg-black':'bg-white'}`}>
                     {props.pageDetails.endPage}
                 </div>
             </div>
