@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+    font-family: 'Pokemon Solid';
+    src: url('./fonts/Pokemon\ Solid.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+*{
+    transition:.3s ease-in-out;
+}

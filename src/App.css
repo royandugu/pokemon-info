@@ -1,0 +1,3 @@
+.rotate-on-hover:hover {
+    transform: rotate(180deg);
+}
