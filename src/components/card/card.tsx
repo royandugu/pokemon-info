@@ -24,7 +24,9 @@ const Card=({
 
     const contextContainer=useContext(context);
 
-    const {data,status,refetch}=useQuery(["indv-children", id],()=>GET(url));
+    const {data,status,refetch}=useQuery(["indv-children", id],()=>GET(url),{
+      staleTime: 1000 * 60 * 60, // 1 hour in milliseconds
+    });
 
     useEffect(()=>{
       if(status === "success"){

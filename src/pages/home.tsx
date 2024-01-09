@@ -23,7 +23,9 @@ const Home = () => {
     const pageTitle = `Explore the Ultimate World of Pokémon - Uncover Fascinating Facts!`;
     const pageDescription = `Dive into the captivating universe of Pokémon with our comprehensive guide. Discover intriguing facts and informations about the beloved Pokémon franchise. Whether you're a seasoned trainer or a curious newcomer, our Pokémon website is your go-to resource for all things Pokémon!`;
 
-    const { data, status } = useQuery("pokemon-list", () => GET(`https://pokeapi.co/api/v2/pokemon?limit=100`));
+    const { data, status } = useQuery("pokemon-list", () => GET(`https://pokeapi.co/api/v2/pokemon?limit=100`),{
+        staleTime: 1000 * 60 * 60, // 1 hour in milliseconds
+      });
 
     const [indvData, setIndvData] = useState<indvDataType>({
         sprite: "",
